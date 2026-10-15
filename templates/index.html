@@ -1,0 +1,96 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Fake News Detection System</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header>
+
+            <h1>Fake News Detection System</h1>
+
+            <p class="subtitle">
+                Analyze news articles using Machine Learning
+            </p>
+        </header>
+
+        <main class="card">
+
+            <form method="POST" action="/">
+
+                <label for="news_text">Enter News Article</label>
+
+                <textarea
+                    id="news_text"
+                    name="news_text"
+                    rows="9"
+                    maxlength="20000"
+                    placeholder="Paste your news article here..."
+                    required>{{ news_text or '' }}</textarea>
+
+                <div class="helper">
+                    Enter the news text you want to analyze.
+                </div>
+
+                <button type="submit">
+                    Analyze News
+                </button>
+
+            </form>
+
+            {% if prediction %}
+
+            <div class="result
+                {% if prediction == 'Fake News' %}
+                    fake
+                {% elif prediction == 'Real News' %}
+                    real
+                {% else %}
+                    error
+                {% endif %}">
+
+                <h2>Analysis Result</h2>
+
+                <p class="prediction">
+                    {{ prediction }}
+                </p>
+
+                {% if confidence is not none %}
+                <p class="confidence">
+                    Model Score: {{ confidence }}%
+                </p>
+                {% endif %}
+
+            </div>
+
+            {% endif %}
+
+        </main>
+
+        <footer>
+            <p>
+                Powered by Flask, TF-IDF and Logistic Regression
+            </p>
+
+            <p class="disclaimer">
+                This prediction is based on a machine learning model
+                and does not guarantee the factual accuracy of news.
+            </p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
+```
